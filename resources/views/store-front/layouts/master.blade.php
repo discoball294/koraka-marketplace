@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     @yield('page-title')
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{ asset('css/themify-icons.css') }}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{ asset('css/flexslider.css') }}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{ asset('css/lightbox.min.css') }}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{ asset('css/ytplayer.css') }}" rel="stylesheet" type="text/css" media="all"/>
-    <link href="{{ asset('css/theme.css') }}" rel="stylesheet" type="text/css" media="all"/>
+    <link href="{{ asset('css/theme-gunmetal.css') }}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css" media="all"/>
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600'
           rel='stylesheet' type='text/css'>
@@ -87,21 +87,29 @@
                             <h6 class="title">Shopping Cart</h6>
                             <hr>
                             <ul class="cart-overview">
-                                @foreach($cart_content as $content)
-                                    <li>
-                                        <a href="{{ route('storefront.product-single',$content->id) }}">
-                                            <img alt="Product" src="{{ asset($content->options->image) }}"/>
-                                            <div class="description">
-                                                <span class="product-title">{{ $content->name }}</span>
-                                                <span class="price number">Rp. {{ number_format($content->price) }}</span>
-                                            </div>
-                                        </a>
-                                    </li>
+                                @foreach($cart_content as $cart)
+                                    @foreach($cart as $content)
+                                        <li>
+                                            <a href="{{ route('storefront.product-single',$content->id) }}">
+                                                <img alt="Product" src="{{ asset($content->options->image) }}"/>
+                                                <div class="description">
+                                                    <span class="product-title">{{ $content->name }}</span>
+                                                    <span class="price number">Rp. {{ number_format($content->price) }}</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        @if($loop->iteration == 1)
+                                            @break
+                                        @endif
+                                    @endforeach
+                                    @if($loop->iteration == 2)
+                                        @break
+                                    @endif
                                 @endforeach
                             </ul>
                             <hr>
                             <div class="cart-controls">
-                                <a class="btn btn-sm btn-filled" href="{{ route('cart-content') }}">Checkout</a>
+                                <a class="btn btn-sm btn-filled" href="{{ route('cart-content') }}">Show All</a>
                                 <div class="list-inline pull-right">
                                     <span class="cart-total">Total: </span>
                                     <span class="number">Rp. {{ $cart_total }}</span>
@@ -256,6 +264,7 @@
 <script src="{{ asset('js/smooth-scroll.min.js') }}"></script>
 <script src="{{ asset('js/parallax.js') }}"></script>
 <script src="{{ asset('js/scripts.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 @yield('additional-script')
 </body>
 </html>

@@ -18,7 +18,7 @@ class Product extends Migration
             $table->integer('store_id');
             $table->integer('kategori_id');
             $table->string('nama_barang');
-            $table->string('deskripsi');
+            $table->text('deskripsi');
             $table->integer('harga');
             $table->string('gambar');
             $table->integer('stok');

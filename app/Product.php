@@ -40,7 +40,7 @@ class Product extends Model
 {
     use HasPageViewCounter;
     protected $table = 'products';
-    protected $fillable = ['store_id', 'kategori_id', 'nama_barang', 'deskripsi', 'harga', 'gambar', 'stok', 'url'];
+    protected $fillable = ['store_id', 'kategori_id', 'nama_barang', 'deskripsi', 'harga', 'gambar', 'stok'];
 
     public function stores()
     {

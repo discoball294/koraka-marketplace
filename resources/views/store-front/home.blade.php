@@ -78,7 +78,7 @@
                 <div class="module widget-handle cart-widget-handle left">
                     <div class="cart">
                         <i class="ti-bag"></i>
-                        <span class="label number">2</span>
+                        <span class="label number">{{ $cart_count }}</span>
                         <span class="title">Shopping Cart</span>
                     </div>
                     <div class="function">
@@ -86,31 +86,32 @@
                             <h6 class="title">Shopping Cart</h6>
                             <hr>
                             <ul class="cart-overview">
-                                <li>
-                                    <a href="#">
-                                        <img alt="Product" src="img/shop-widget-1.png"/>
-                                        <div class="description">
-                                            <span class="product-title">Canvas Backpack</span>
-                                            <span class="price number">$39.90</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="Product" src="img/shop-widget-2.png"/>
-                                        <div class="description">
-                                            <span class="product-title">Vintage Camera</span>
-                                            <span class="price number">$249.50</span>
-                                        </div>
-                                    </a>
-                                </li>
+                                @foreach($cart_content as $cart)
+                                    @foreach($cart as $content)
+                                        <li>
+                                            <a href="{{ route('storefront.product-single',$content->id) }}">
+                                                <img alt="Product" src="{{ asset($content->options->image) }}"/>
+                                                <div class="description">
+                                                    <span class="product-title">{{ $content->name }}</span>
+                                                    <span class="price number">Rp. {{ number_format($content->price) }}</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        @if($loop->iteration == 1)
+                                            @break
+                                        @endif
+                                    @endforeach
+                                    @if($loop->iteration == 2)
+                                        @break
+                                    @endif
+                                @endforeach
                             </ul>
                             <hr>
                             <div class="cart-controls">
-                                <a class="btn btn-sm btn-filled" href="#">Checkout</a>
+                                <a class="btn btn-sm btn-filled" href="{{ route('cart-content') }}">Show All</a>
                                 <div class="list-inline pull-right">
                                     <span class="cart-total">Total: </span>
-                                    <span class="number">$289.40</span>
+                                    <span class="number">Rp. {{ $cart_total }}</span>
                                 </div>
                             </div>
                         </div>
@@ -232,11 +233,12 @@
                 @foreach($sorted_product as $item)
                     <div class="col-md-3 col-sm-4">
                         <div class="image-tile outer-title text-center">
-                            <a href="#">
+                            <a href="{{ route('storefront.product-single',$item->id) }}">
                                 <img alt="Pic" class="product-thumb" src="{{ asset($item->gambar) }}"/>
                             </a>
                             <div class="title">
-                                <h5 class="mb0">{{ $item->nama_barang }}</h5>
+                                <a href="{{ route('storefront.product-single',$item->id) }}"><h5
+                                            class="mb0">{{ $item->nama_barang }}</h5></a>
                                 <span class="display-block mb16">Rp. {{ number_format($item->harga) }}</span>
                             </div>
                         </div>

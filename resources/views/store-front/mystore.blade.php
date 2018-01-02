@@ -4,7 +4,7 @@
     <title>{{ $mystore->nama_toko }} - Koraka</title>
 @endsection
 @section('title-section')
-    <section class="page-title page-title-2 image-bg overlay parallax">
+    <section class="page-title page-title-4 image-bg overlay parallax">
         <div class="background-image-holder fadeIn">
             <img alt="Background Image" class="background-image" src="{{ asset($mystore->gambar) }}">
         </div>

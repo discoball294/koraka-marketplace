@@ -46,7 +46,8 @@
                                         <li>
                                             <strong>VIEWS:</strong> {{ $product->getPageViews() }}</li>
                                         <li>
-                                            <strong>SIZES:</strong> XS,S,M,L,XL
+                                            <strong>SELL BY:</strong> <a
+                                                    href="{{ route('storefront.mystore',$product->stores->url_toko) }}">{{ $product->stores->nama_toko }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -313,11 +314,14 @@
                         qty: $('#qty').val(),
                         price: {{ $product->harga }},
                         image: '{{$product->gambar}}',
+                        store_id: '{{ $product->stores->id }}',
+                        store_name: '{{ $product->stores->nama_toko }}',
                         _token: '{{ csrf_token() }}'
                     },
                     dataType: 'json',
                     success: function (result) {
                         console.log(result);
+                        $('.cart-widget-handle').load(location.href + " .cart-widget-handle>*", "")
                     }
                 });
             });

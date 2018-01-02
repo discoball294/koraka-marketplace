@@ -16,7 +16,8 @@
     "gloudemans/shoppingcart": "^2.4",
     "laravel/framework": "5.5.*",
     "laravel/tinker": "~1.0",
-    "spatie/laravel-permission": "^2.7"
+    "spatie/laravel-permission": "^2.7",
+    "zgabievi/promocodes": "^1.1"
   },
   "require-dev": {
     "filp/whoops": "~2.0",

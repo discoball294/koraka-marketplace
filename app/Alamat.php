@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $user_id
  * @property string $alamat
+ * @property string $provinsi
  * @property string $kota
- * @property string $kecamatan
- * @property string $kelurahan
+ * @property string $no_telp
  * @property string $kode_pos
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
@@ -34,9 +34,9 @@ class Alamat extends Model
     protected $fillable = [
         'user_id',
         'alamat',
+        'provinsi',
         'kota',
-        'kecamatan',
-        'kelurahan',
+        'no_telp',
         'kode_pos'
     ];
 

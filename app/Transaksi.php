@@ -29,4 +29,9 @@ class Transaksi extends Model
     {
         return $this->belongsToMany(Product::class, 'detail_transaksi')->withPivot('price', 'qty', 'total')->withTimestamps();
     }
+
+    public function user()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

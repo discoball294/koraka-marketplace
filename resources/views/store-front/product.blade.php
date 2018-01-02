@@ -68,7 +68,8 @@
                                         <img alt="Pic" class="product-thumb" src="{{ asset($item->gambar) }}"/>
                                     </a>
                                     <div class="title">
-                                        <h5 class="mb0">{{ $item->nama_barang }}</h5>
+                                        <a href="{{ route('storefront.product-single',$item->id) }}"><h5
+                                                    class="mb0">{{ $item->nama_barang }}</h5></a>
                                         <span class="display-block mb16">Rp. {{ number_format($item->harga,0) }}</span>
                                     </div>
                                 </div>

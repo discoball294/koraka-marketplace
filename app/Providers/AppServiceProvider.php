@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
             $sorted_product = $products->sortByDesc(function ($product) {
                 return $product->getPageViews();
             });
-            $cart_content = \Cart::content();
+            $cart_content = \Cart::content()->groupBy('options.store_id');
             $cart_total = \Cart::subtotal();
             $cart_count = \Cart::count();
             $view->with('cart_total', $cart_total);
