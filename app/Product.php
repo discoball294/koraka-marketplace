@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use CyrildeWit\PageViewCounter\Traits\HasPageViewCounter;
+use Laravel\Scout\Searchable;
 
 /**
  * App\Product
@@ -35,10 +36,11 @@ use CyrildeWit\PageViewCounter\Traits\HasPageViewCounter;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereUrl($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Review[] $reviews
  */
 class Product extends Model
 {
-    use HasPageViewCounter;
+    use HasPageViewCounter, Searchable;
     protected $table = 'products';
     protected $fillable = ['store_id', 'kategori_id', 'nama_barang', 'deskripsi', 'harga', 'gambar', 'stok'];
 
@@ -55,5 +57,10 @@ class Product extends Model
     public function kategori()
     {
         return $this->belongsTo(Kategori::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

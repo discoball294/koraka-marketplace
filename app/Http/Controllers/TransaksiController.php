@@ -64,12 +64,14 @@ class TransaksiController extends Controller
             }
             $transaksi = new Transaksi();
             $transaksi->total = $subtotal;
+            $transaksi->status = 0;
             $tr = $user->transaksi()->save($transaksi);
             $trp = $transaksi->products()->sync($cart_item);
+            $subtotal = 0;
             $cart_item = array();
         }
         \Cart::destroy();
-        dd($tr, $trp);
+        return view('store-front.home');
 
     }
 

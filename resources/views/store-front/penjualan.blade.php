@@ -2,130 +2,104 @@
 
 @section('page-title')
 
-    <title>Shopping Cart - Koraka</title>
+    <title>Penjualan - Koraka</title>
 
 @endsection
 @section('title-section')
-
+    <section class="page-title page-title-4 image-bg overlay parallax">
+        <div class="background-image-holder fadeIn">
+            <img alt="Background Image" class="background-image" src="{{ asset('img/cover14.jpg') }}"
+                 style="display: none;">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="uppercase mb0">Penjualan</h3>
+                </div>
+                <div class="col-md-6 text-right">
+                    <ol class="breadcrumb breadcrumb-2">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li>
+                            <a href="#">Elements</a>
+                        </li>
+                        <li class="active">Page Titles</li>
+                    </ol>
+                </div>
+            </div>
+            <!--end of row-->
+        </div>
+        <!--end of container-->
+    </section>
 @endsection
 @section('content')
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-md-9 col-md-offset-0 col-sm-10 col-sm-offset-1">
-                    @foreach($cart_content as $cart)
-                        <h5 class="uppercase">Pembelian dari <a
-                                    href="{{ route('storefront.mystore',\App\Store::find($cart[0]->options->store_id)->first()->url_toko) }}">
-                                <strong>{{ $cart[0]->options->store_name }}</strong></a></h5>
-                        <table class="table cart mb48">
-                            <thead>
-                            <tr>
-                                <th>&nbsp;</th>
-                                <th>Product</th>
-                                <th>Description</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @php($store_total = 0)
-                            @foreach($cart as $content)
+                <div class="col-md-9 col-md-offset-1 col-sm-10 col-sm-offset-1">
+                    <h5 class="uppercase">Pesanan Masuk</h5>
+                    <hr>
+                    <table class="table cart mb48 table-hover">
+                        <thead>
+                        <tr>
+                            <th>&nbsp;#</th>
+                            <th>Pembeli</th>
+                            <th>Produk</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($list_penjualan as $penjualan)
+                            <tr class="clickable-row" data-href="{{ route('jual.detail' ,$penjualan->id) }}"
+                                style="cursor: pointer" data-toggle="tooltip"
+                                data-placement="left"
+                                title=""
+                                data-original-title="Click for detail">
+                                <th scope="row">
 
-                                <tr>
-                                    <th scope="row">
-
-                                        <form action="{{ route('remove-item') }}" method="post" id="delete-item">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="rowId" value="{{ $content->rowId }}">
-                                            <a href="javascript:void(0)" class="remove-item" data-toggle="tooltip"
-                                               data-placement="top"
-                                               title=""
-                                               data-original-title="Remove from cart">
-                                                <i class="ti-close"></i>
-                                            </a>
-                                        </form>
-                                    </th>
-                                    <td>
-                                        <a href="{{ route('storefront.product-single',$content->id) }}">
-                                            <img alt="Product" class="product-thumb"
-                                                 src="{{ asset($content->options->image) }}">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <span><a href="{{ route('storefront.product-single',$content->id) }}">{{ $content->name }}</a></span>
-                                    </td>
-                                    <td>
-                                        <span>{{ $content->qty }}</span>
-                                    </td>
-                                    <td>
-                                        <span>Rp. {{ number_format($content->price) }}</span>
-
-                                    </td>
-                                </tr>
-
-                                @php($store_total += $content->price)
-                                @if($loop->last)
-                                    <tr>
-                                        <th scope="row" colspan="4"><span
-                                                    class="pull-right"><strong>Subtotal</strong></span></th>
-                                        <td><span>Rp. {{ number_format($store_total) }}</span></td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @endforeach
-                    <form class="thirds text-center mb-xs-24">
-                        <h5 class="uppercase">Add a coupon code</h5>
-                        <input type="text" placeholder="Coupon Code">
-                        <input class="hollow" type="submit" value="Apply">
-                    </form>
-                </div>
-                <!--end of items-->
-                <div class="col-md-3 col-md-offset-0 col-sm-10 col-sm-offset-1 ">
-                    {{--<div class="mb24">
-                        <h5 class="uppercase">Calculate Shipping</h5>
-                        <div class="select-option">
-                            <i class="ti-angle-down"></i>
-                            <select>
-                                <option selected="" value="Default">Select Country</option>
-                                <option value="aus">Australia</option>
-                                <option value="ind">India</option>
-                                <option value="uk">United Kingdom</option>
-                                <option value="usa">United States</option>
-                            </select>
-                        </div>
-                        <!--end select-->
-                        <form>
-                            <input class="hollow" type="submit" value="Calculate Shipping">
-                        </form>
-                    </div>--}}
-                    <div class="mb24">
-                        <h5 class="uppercase">Your Order Total</h5>
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <th scope="row">Cart Subtotal</th>
-                                <td>Rp. {{ $cart_total }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Services Fee</th>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Order Total</th>
+                                    <span>{{ $penjualan->id }}</span>
+                                </th>
                                 <td>
-                                    <strong>Rp. {{ $cart_total }}</strong>
+                                    <span>{{$penjualan->user()->first()->name}}</span>
+                                </td>
+                                <td>
+                                    <span>{{ $penjualan->products->count() }}</span>
+                                </td>
+                                <td>
+                                    <span>Rp. {{ number_format($penjualan->total) }}</span>
+                                </td>
+                                <td>
+                                    <span class="label {{ ($penjualan->status == 0) ? 'label-info' : (($penjualan->status == 1) ? 'label-primary' : (($penjualan->status == 2) ? 'label-warning' : (($penjualan->status == 3) ? 'label-success' : 'label-danger'))) }}">{{ ($penjualan->status == 0) ? 'New' : (($penjualan->status == 1) ? 'Payment Confirmed' : (($penjualan->status == 2) ? 'Dikirim' : (($penjualan->status == 3) ? 'Selesai' : 'Gagal'))) }}</span>
                                 </td>
                             </tr>
-                            </tbody>
-                        </table>
-                        <form>
-                            <a href="{{ route('order.create') }}" class="btn btn-filled btn-lg" style="width: 100%">Proceed
-                                To Checkout</a>
-                        </form>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    <div class="text-center mt40">
+                        <ul class="pagination">
+                            <li>
+                                <a href="{{ $list_penjualan->url(1) }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            @if($list_penjualan->lastPage() > 1)
+                                @for($i = 1; $i <= $list_penjualan->lastPage(); $i++)
+                                    <li class="{{ ($list_penjualan->currentPage()==$i ? 'active' : '') }}"><a
+                                                href="{{ $list_penjualan->url($i) }}">{{ $i }}</a></li>
+                                @endfor
+                            @endif
+                            <li>
+                                <a href="{{ $list_penjualan->url($list_penjualan->lastPage()) }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+                <!--end of items-->
+
                 <!--end of totals-->
             </div>
             <!--end of row-->
@@ -142,10 +116,9 @@
                 showCaption: false,
                 showUpload: false
             });
-            $('.remove-item').click(function () {
-                $(this).closest('form').submit()
-            })
-
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
 
         });
     </script>

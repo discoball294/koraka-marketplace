@@ -28,7 +28,7 @@
                                 <span>Shipping Address:</span>
                                 <input type="text" name="alamat"
                                        placeholder="Nama gedung, Jalan, Kecamatan dan lainnya..."
-                                       value="{{ $user->alamat->alamat }}">
+                                       value="{{ @$user->alamat->alamat }}">
                             </div>
                             <div class="input-with-label col-sm-6 text-left">
                                 <span>Provinsi:</span>
@@ -53,12 +53,12 @@
                             <div class="input-with-label col-sm-6 text-left">
                                 <span>Tel:</span>
                                 <input type="tel" placeholder="Phone Number" name="no_telp"
-                                       value="{{ $user->alamat->no_telp }}">
+                                       value="{{ @$user->alamat->no_telp }}">
                             </div>
                             <div class="input-with-label col-sm-6 text-left">
                                 <span>Kode Pos:</span>
                                 <input type="text" placeholder="Kode Pos" name="kode_pos"
-                                       value="{{ $user->alamat->kode_pos }}">
+                                       value="{{ @$user->alamat->kode_pos }}">
                             </div>
                         </form>
                     @else

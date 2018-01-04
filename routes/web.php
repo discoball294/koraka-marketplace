@@ -13,6 +13,7 @@
 
 Route::get('', ['uses' => 'HomeController@index', 'as' => 'storefront.index']);
 Route::get('products/{category}', ['uses' => 'HomeController@indexProduct', 'as' => 'storefront.product']);
+Route::get('search', ['uses' => 'HomeController@search', 'as' => 'storefront.search']);
 Route::get('product/{id}', ['uses' => 'HomeController@singleProduct', 'as' => 'storefront.product-single']);
 Route::get('store/{url_toko}', ['uses' => 'HomeController@indexStore', 'as' => 'storefront.mystore']);
 Route::resource('order', 'TransaksiController');
@@ -24,13 +25,19 @@ Route::group(['prefix' => 'cart'], function () {
 Route::group(['middleware' => ['role:User']], function () {
     Route::resource('act-product', 'ProductController');
     Route::resource('mystore', 'StoreController');
+    Route::resource('review', 'ReviewController');
+    Route::group(['prefix' => 'penjualan'], function () {
+        Route::get('', ['uses' => 'JualBeliController@indexJual', 'as' => 'jual.index']);
+        Route::get('detail/{id}', ['uses' => 'JualBeliController@detailJual', 'as' => 'jual.detail']);
+    });
+    Route::group(['prefix' => 'pembelian'], function () {
+        Route::get('', ['uses' => 'JualBeliController@indexBeli', 'as' => 'beli.index']);
+        Route::get('detail/{id}', ['uses' => 'JualBeliController@detailBeli', 'as' => 'beli.detail']);
+        Route::post('upload', ['uses' => 'BuktiTransferController@upload', 'as' => 'upload-bukti']);
+    });
 });
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('debugging', function () {
-    $store_id = 2;
-    $transaksi = \App\Transaksi::whereHas('products.stores', function ($query) use ($store_id) {
-        $query->where('id', '=', $store_id);
-    })->toSql();
-    dd($transaksi);
+Route::get('debugging', function (Request $request) {
+    dd(\App\Product::paginate(10));
 });

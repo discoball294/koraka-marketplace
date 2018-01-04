@@ -46,8 +46,8 @@ class StoreController extends Controller
         $mystore->url_toko = $request->url_toko;
         $mystore->gambar = $path;
 
-        $save = $user->myStore()->save($mystore);
-        dd($save);
+        $user->myStore()->save($mystore);
+        return redirect()->route('storefront.mystore', $user->myStore->url_toko);
 
 
     }

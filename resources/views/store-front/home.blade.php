@@ -70,8 +70,8 @@
                         <span class="title">Search Site</span>
                     </div>
                     <div class="function">
-                        <form class="search-form">
-                            <input type="text" placeholder="Type Here"/>
+                        <form class="search-form" method="get" action="{{ route('storefront.search') }}">
+                            <input type="text" placeholder="Type Here" name="q"/>
                         </form>
                     </div>
                 </div>
@@ -119,40 +119,7 @@
                     </div>
                 </div>
                 <div class="module widget-handle language left">
-                    <ul class="menu">
-                        @if(Auth::check())
-                            <li class="has-dropdown">
-                                <a href="#">{{ Auth::user()->name }}</a>
-                                <ul>
-                                    <li>
-                                        <a href="#">Profile</a>
-                                    </li>
-
-                                    @if($user->myStore()->exists())
-                                        <li>
-                                            <a href="{{ route('storefront.mystore',$user->myStore()->first()->url_toko) }}">Toko</a>
-                                        </li>
-                                    @else
-                                        <li>
-
-                                            <a href="{{ route('mystore.create') }}">Buka Toko</a>
-                                        </li>
-                                    @endif
-
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                              style="display: none;">{{ csrf_field() }}</form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @else
-                            <li>
-                                <a href="{{ route('login') }}">Login</a>
-                            </li>
-                        @endif
-                    </ul>
+                    @include('store-front.layouts.include.user-menu')
                 </div>
             </div>
             <!--end of module group-->

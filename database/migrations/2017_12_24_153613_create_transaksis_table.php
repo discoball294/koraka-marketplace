@@ -17,6 +17,7 @@ class CreateTransaksisTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('total');
+            $table->integer('status');
             $table->timestamps();
         });
     }

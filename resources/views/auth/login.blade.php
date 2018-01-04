@@ -29,6 +29,9 @@
                             </div>
                             <input type="submit" value="Login">
                         </form>
+                        <p class="mb0">Don't have an account?
+                            <a href="{{ route('register') }}">Sign Up Here</a>
+                        </p>
                         <p class="mb0">Forgot your password?
                             <a href="#">Click Here To Reset</a>
                         </p>

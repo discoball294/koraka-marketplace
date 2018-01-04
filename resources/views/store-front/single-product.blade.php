@@ -10,23 +10,27 @@
 @section('content')
     <section>
         <div class="container">
+            @if($owner)
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Info!</strong> Ini adalah produk Anda, Anda tidak bisa melakukan pembelian pada produk ini!
+                </div>
+            @endif
             <div class="row">
+
                 <div class="col-md-9">
                     <div class="product-single">
                         <div class="row mb24 mb-xs-48">
                             <div class="col-md-5 col-sm-6">
-                                <div class="image-slider slider-thumb-controls controls-inside">
 
+                                <a href="{{ asset($product->gambar) }}" data-lightbox="Product"
+                                   data-title="{{$product->nama_barang}}">
+                                    <img id="zoom-product" alt="Image" src="{{ asset($product->gambar) }}"
+                                         draggable="false" data-zoom-image="{{ asset($product->gambar) }}">
+                                </a>
 
-                                    <div class="flex-viewport">
-                                        <ul class="slides">
-                                            <li class="gambar" aria-hidden="true">
-                                                <img alt="Image" src="{{ asset($product->gambar) }}" draggable="false">
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                </div>
                                 <!--end of image slider-->
                             </div>
                             <div class="col-sm-6">
@@ -52,11 +56,20 @@
                                     </ul>
                                 </div>
                                 <hr class="mb48 mb-xs-24">
-                                <form class="add-to-cart" id="atc">
-                                    <input type="number" placeholder="QTY" id="qty" min="0" max="{{ $product->stok }}"
-                                           value="1">
-                                    <input type="submit" value="Add To Cart" id="btn-atc">
-                                </form>
+                                @if($owner)
+                                    <form class="add-to-cart" id="atc">
+                                        <a href="{{ route('act-product.edit', $product->id) }}" class="btn btn-filled"
+                                           id="btn-atc">EDIT</a>
+                                        <a href="" class="btn btn-filled" id="btn-atc">DELETE</a>
+                                    </form>
+                                @else
+                                    <form class="add-to-cart" id="atc">
+                                        <input type="number" placeholder="QTY" id="qty" min="0"
+                                               max="{{ $product->stok }}"
+                                               value="1">
+                                        <input type="submit" value="Add To Cart" id="btn-atc">
+                                    </form>
+                                @endif
                             </div>
                         </div>
                         <!--end of row-->
@@ -129,87 +142,50 @@
                                         <li class="active">
                                             <div class="tab-content">
                                                 <ul class="ratings">
-                                                    <li>
-                                                        <div class="user">
-                                                            <ul class="list-inline star-rating">
-                                                                <li>
-                                                                    <i class="ti-star"></i>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="ti-star"></i>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="ti-star"></i>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="ti-star"></i>
-                                                                </li>
-                                                            </ul>
-                                                            <span class="bold-h6">Murray Rafferty</span>
-                                                            <span class="date number">23/02/2015</span>
-                                                        </div>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                                            do eiusmod tempor incididunt ut labore et dolore magna
-                                                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                                            ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                                            Duis aute irure dolor in reprehenderit in voluptate velit
-                                                            esse cillum dolore eu fugiat nulla pariatur.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <div class="user">
-                                                            <ul class="list-inline star-rating">
-                                                                <li>
-                                                                    <i class="ti-star"></i>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="ti-star"></i>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="ti-star"></i>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="ti-star"></i>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="ti-star"></i>
-                                                                </li>
-                                                            </ul>
-                                                            <span class="bold-h6">Claire Taurus</span>
-                                                            <span class="date number">15/02/2015</span>
-                                                        </div>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                                            do eiusmod tempor incididunt ut labore et dolore magna
-                                                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                                            ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                                            Duis aute irure dolor in reprehenderit in voluptate velit
-                                                            esse cillum dolore eu fugiat nulla pariatur.
-                                                        </p>
-                                                    </li>
+                                                    @foreach($reviews as $review)
+                                                        <li>
+                                                            <div class="user">
+                                                                <ul class="list-inline star-rating">
+                                                                    @for($i = 1; $i<=$review->star;$i++)
+                                                                        <li>
+                                                                            <i class="ti-star"></i>
+                                                                        </li>
+                                                                    @endfor
+                                                                </ul>
+                                                                <span class="bold-h6">{{ $review->user->name }}</span>
+                                                                <span class="date number">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$review->created_at)->toFormattedDateString() }}</span>
+                                                            </div>
+                                                            <p>
+                                                                {{ $review->comment }}
+                                                            </p>
+                                                        </li>
+                                                    @endforeach
                                                 </ul>
                                                 <!--end of ratings-->
-                                                <h6 class="uppercase">Leave A Rating</h6>
-                                                <form class="ratings-form">
-                                                    <div class="overflow-hidden">
-                                                        <input type="text" placeholder="Your Name">
-                                                        <input type="text" placeholder="Email Address">
-                                                    </div>
-                                                    <div class="select-option">
-                                                        <i class="ti-angle-down"></i>
-                                                        <select>
-                                                            <option selected="" value="Default">Select A Rating</option>
-                                                            <option value="1">1 Star</option>
-                                                            <option value="2">2 Stars</option>
-                                                            <option value="3">3 Stars</option>
-                                                            <option value="4">4 Stars</option>
-                                                            <option value="5">5 Stars</option>
-                                                        </select>
-                                                    </div>
-                                                    <textarea placeholder="Comment" rows="3"></textarea>
-                                                    <input type="submit" value="Leave Comment">
-                                                </form>
+                                                @if($buy)
+                                                    <h6 class="uppercase">Leave A Rating</h6>
+                                                    <form class="ratings-form" method="post"
+                                                          action="{{ route('review.store') }}">
+                                                        <input type="hidden" name="product_id"
+                                                               value="{{ $product->id }}">
+                                                        {{ csrf_field() }}
+                                                        <div class="select-option">
+                                                            <i class="ti-angle-down"></i>
+                                                            <select name="star">
+                                                                <option selected="" value="Default">Select A Rating
+                                                                </option>
+                                                                <option value="1">1 Star</option>
+                                                                <option value="2">2 Stars</option>
+                                                                <option value="3">3 Stars</option>
+                                                                <option value="4">4 Stars</option>
+                                                                <option value="5">5 Stars</option>
+                                                            </select>
+                                                        </div>
+                                                        <textarea placeholder="Comment" rows="3"
+                                                                  name="comment"></textarea>
+                                                        <input type="submit" value="Leave Comment">
+                                                    </form>
+                                                @endif
                                             </div>
                                         </li>
                                     </ul>
@@ -293,14 +269,14 @@
 @endsection
 @section('additional-script')
     <script src="{{ asset('js/fileinput.js') }}"></script>
-    <script src="{{ asset('js/jquery.zoom.js') }}"></script>
+    <script src="{{ asset('js/jquery.elevatezoom.js') }}"></script>
     <script>
         $(document).on('ready', function () {
+            $('#zoom-product').elevateZoom();
             $("#input-b5").fileinput({
                 showCaption: false,
                 showUpload: false
             });
-            $('li.gambar').zoom({url: '{{ $product->gambar }}'});
             $('#atc').submit(function (e) {
                 e.preventDefault();
             });

@@ -5,32 +5,7 @@
 
 @endsection
 @section('title-section')
-    <section class="page-title page-title-4 image-bg overlay">
-        <div class="background-image-holder fadeIn" style="background: url('{{ asset('img/cover14.jpg') }}');">
-            <img alt="Background Image" class="background-image" src="{{ asset('img/cover05.jpg') }}"
-                 style="display: none;">
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3 class="uppercase mb0">Short Image</h3>
-                </div>
-                <div class="col-md-6 text-right">
-                    <ol class="breadcrumb breadcrumb-2">
-                        <li>
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
-                            <a href="#">Elements</a>
-                        </li>
-                        <li class="active">Page Titles</li>
-                    </ol>
-                </div>
-            </div>
-            <!--end of row-->
-        </div>
-        <!--end of container-->
-    </section>
+
 @endsection
 @section('content')
     <section>
@@ -78,7 +53,7 @@
                         </div>
                         <input type="hidden" name="store_id" value="{{ $user->myStore->id }}">
                         {{ csrf_field() }}
-                        <input type="submit" value="Submit Button">
+                        <input type="submit" value="Simpan">
                     </div>
                 </form>
             </div>

@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $user_id
  * @property int $total
+ * @property int $status
+ * @property int $resi
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Product[] $products
@@ -19,11 +21,15 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaksi whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaksi whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaksi whereResi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaksi whereStatus($value)
+ * @property-read \App\BuktiTransfer $bukti
  */
 class Transaksi extends Model
 {
     protected $table = 'transaksi';
-    protected $fillable = ['user_id', 'total'];
+    protected $fillable = ['user_id', 'total', 'status', 'resi'];
 
     public function products()
     {
@@ -32,6 +38,11 @@ class Transaksi extends Model
 
     public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function bukti()
+    {
+        return $this->hasOne(BuktiTransfer::class);
     }
 }

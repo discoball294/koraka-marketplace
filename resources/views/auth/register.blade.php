@@ -1,80 +1,53 @@
-@extends('layouts.app')
+@extends('store-front.layouts.master')
 
+@section('page-title')
+    <title>Login - Koraka</title>
+
+@endsection
+@section('title-section')
+
+@endsection
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Register</div>
-
-                    <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+    <section class="cover fullscreen image-bg overlay">
+        <div class="background-image-holder fadeIn">
+            <img alt="image" class="background-image" src="{{ asset('img/login-cover.jpg') }}">
+        </div>
+        <div class="container v-align-transform">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="feature bordered text-center">
+                        <h4 class="uppercase">Register Here</h4>
+                        <form class="text-left" method="POST" action="{{ route('register') }}">
                             {{ csrf_field() }}
-
-                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">Name</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name"
-                                           value="{{ old('name') }}" required autofocus>
-
-                                    @if ($errors->has('name'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email"
-                                           value="{{ old('email') }}" required>
-
-                                    @if ($errors->has('email'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" required>
-
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
-                                           name="password_confirmation" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Register
-                                    </button>
-                                </div>
-                            </div>
+                            <input id="name" type="text" name="name" placeholder="Nama"
+                                   value="{{ old('name') }}" required autofocus>
+                            <input id="email" type="email" name="email" placeholder="Email Address"
+                                   value="{{ old('email') }}" required>
+                            <input id="password" type="password" placeholder="Password" name="password" required>
+                            <input id="password-confirm" type="password" class="form-control"
+                                   placeholder="Confirm Password"
+                                   name="password_confirmation" required>
+                            <input type="submit" value="Register">
                         </form>
+                        <p class="mb0">By signing up, you agree to our
+                            <a href="#">Terms Of Use</a>
+                        </p>
                     </div>
                 </div>
             </div>
+            <!--end of row-->
         </div>
-    </div>
+        <!--end of container-->
+    </section>
+@endsection
+@section('additional-script')
+    <script src="{{ asset('js/fileinput.js') }}"></script>
+    <script>
+        $(document).on('ready', function () {
+            $("#input-b5").fileinput({
+                showCaption: false,
+                showUpload: false
+            });
+        });
+    </script>
 @endsection

@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Alamat whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Alamat whereUserId($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Alamat whereNoTelp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Alamat whereProvinsi($value)
  */
 class Alamat extends Model
 {

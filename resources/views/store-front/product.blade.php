@@ -1,29 +1,21 @@
 @extends('store-front.layouts.master')
 
 @section('page-title')
-    <title>All Product - Koraka</title>
+    <title>{{ $title }} - Koraka</title>
 @endsection
 @section('title-section')
     <section class="page-title page-title-4 image-bg overlay parallax">
         <div class="background-image-holder fadeIn">
-            <img alt="Background Image" class="background-image" src="{{ asset('img/cover14.jpg') }}"
+            <img alt="Background Image" class="background-image" src="{{ asset('img/cover-product.jpg') }}"
                  style="display: none;">
         </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h3 class="uppercase mb0">Short Image</h3>
+                    <h3 class="uppercase mb0">{{ $title }} {{ @$query }}</h3>
                 </div>
                 <div class="col-md-6 text-right">
-                    <ol class="breadcrumb breadcrumb-2">
-                        <li>
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
-                            <a href="#">Elements</a>
-                        </li>
-                        <li class="active">Page Titles</li>
-                    </ol>
+
                 </div>
             </div>
             <!--end of row-->
@@ -38,19 +30,12 @@
                 <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-4 col-sm-4 masonry-item col-xs-12">
-                            <div class="select-option">
-                                <i class="ti-angle-down"></i>
-                                <select>
-                                    <option selected value="Default">Sort By</option>
-                                    <option value="Small">Highest Price</option>
-                                    <option value="Medium">Lowest Price</option>
-                                    <option value="Larger">Newest Items</option>
-                                </select>
-                            </div>
+
                             <!--end select-->
                         </div>
                         <div class="col-md-8 text-right">
-                            <span class="input-lh">Displaying 8 of 8 results</span>
+                            <span class="input-lh">@if($title == 'Hasil Pencarian')<img
+                                        src="{{ asset('img/search-by-algolia.png') }}">@endif</span>
                         </div>
                     </div>
                     <!--end of row-->

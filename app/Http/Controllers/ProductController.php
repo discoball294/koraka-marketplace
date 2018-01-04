@@ -46,10 +46,8 @@ class ProductController extends Controller
         $product->gambar = $path;
         $product->kategori_id = $request->kategori;
         $product->store_id = $request->store_id;
-        $save = $product->save();
-        dd($save);
-
-
+        $product->save();
+        return redirect()->route('storefront.mystore', \Auth::user()->myStore->url_toko);
     }
 
     /**
@@ -69,9 +67,11 @@ class ProductController extends Controller
      * @param  \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Product $product, $id)
     {
-        //
+        $product = $product::find($id);
+        //dd($product);
+        return view('store-front.edit-product', compact('product'));
     }
 
     /**
@@ -81,9 +81,23 @@ class ProductController extends Controller
      * @param  \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Product $product, $id)
     {
-        //
+        $product = $product->find($id);
+        $product->nama_barang = $request->nama;
+        $product->harga = $request->harga;
+        $product->deskripsi = $request->deskripsi;
+        $product->stok = $request->stok;
+        if ($request->hasFile('gambar')) {
+            $path = $request->gambar->store('images', 'public');
+            $product->gambar = $path;
+        }
+
+        $product->kategori_id = $request->kategori;
+        $product->store_id = $request->store_id;
+        $product->save();
+        return redirect()->route('storefront.mystore', \Auth::user()->myStore->url_toko);
+
     }
 
     /**
