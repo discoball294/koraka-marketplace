@@ -22,22 +22,30 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('content', ['uses' => 'CartController@content', 'as' => 'cart-content']);
     Route::post('delete', ['uses' => 'CartController@removeItem', 'as' => 'remove-item']);
 });
-Route::group(['middleware' => ['role:User']], function () {
+Route::group(['middleware' => ['role:User', 'web']], function () {
     Route::resource('act-product', 'ProductController');
     Route::resource('mystore', 'StoreController');
     Route::resource('review', 'ReviewController');
+    Route::get('invoice/{id}', ['uses' => 'JualBeliController@invoice', 'as' => 'invoice']);
     Route::group(['prefix' => 'penjualan'], function () {
         Route::get('', ['uses' => 'JualBeliController@indexJual', 'as' => 'jual.index']);
         Route::get('detail/{id}', ['uses' => 'JualBeliController@detailJual', 'as' => 'jual.detail']);
+        Route::post('kirim', ['uses' => 'JualBeliController@kirim', 'as' => 'jual.kirim']);
     });
     Route::group(['prefix' => 'pembelian'], function () {
         Route::get('', ['uses' => 'JualBeliController@indexBeli', 'as' => 'beli.index']);
         Route::get('detail/{id}', ['uses' => 'JualBeliController@detailBeli', 'as' => 'beli.detail']);
         Route::post('upload', ['uses' => 'BuktiTransferController@upload', 'as' => 'upload-bukti']);
+        Route::post('kirim', ['uses' => 'JualBeliController@terima', 'as' => 'beli.terima']);
     });
+});
+Route::group(['prefix' => 'admin', 'middleware' => ['role:Admin']], function () {
+    Route::get('', ['uses' => 'IndexAdminController@index', 'as' => 'admin.index']);
+    Route::get('order', ['uses' => 'IndexAdminController@order', 'as' => 'admin.order']);
+    Route::get('detail/{id}', ['uses' => 'IndexAdminController@detailOrder', 'as' => 'detail.order']);
 });
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('debugging', function (Request $request) {
-    dd(\App\Product::paginate(10));
+    dd(\App\Transaksi::first()->alamat->gambar);
 });

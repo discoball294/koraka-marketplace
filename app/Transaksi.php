@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $total
  * @property int $status
  * @property int $resi
+ * @property string $invoice_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Product[] $products
@@ -29,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaksi extends Model
 {
     protected $table = 'transaksi';
-    protected $fillable = ['user_id', 'total', 'status', 'resi'];
+    protected $fillable = ['user_id', 'total', 'status', 'resi', 'invoice_id'];
 
     public function products()
     {

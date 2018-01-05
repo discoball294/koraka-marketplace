@@ -19,11 +19,11 @@ class UserTableSeeder extends Seeder
         $user->assignRole('user');*/
 
         $user = new \App\User();
-        $user->name = 'Denny Sugianto';
-        $user->email = 'sugiantodenny@gmail.com';
+        $user->name = 'Admin Satu';
+        $user->email = 'admin@koraka.id';
         $user->password = bcrypt('123456');
         $user->save();
-        $user->assignRole('user');
+        $user->assignRole('admin');
 
     }
 }

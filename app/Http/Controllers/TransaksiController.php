@@ -57,6 +57,8 @@ class TransaksiController extends Controller
 
         $cart_item = [];
         $subtotal = 0;
+        $inv = Transaksi::where('user_id', '=', \Auth::id())->orderBy('id', 'DESC')->pluck('id')->first() + 1;
+        $now = \Carbon\Carbon::now()->format('YmdHis');
         foreach ($cart_content = \Cart::content()->groupBy('options.store_id') as $content_store) {
             foreach ($content_store as $content) {
                 $cart_item[$content->id] = ['price' => $content->price, 'qty' => $content->qty, 'total' => $content->price * $content->qty];
@@ -64,6 +66,7 @@ class TransaksiController extends Controller
             }
             $transaksi = new Transaksi();
             $transaksi->total = $subtotal;
+            $transaksi->invoice_id = 'INV' . $now . $inv;
             $transaksi->status = 0;
             $tr = $user->transaksi()->save($transaksi);
             $trp = $transaksi->products()->sync($cart_item);

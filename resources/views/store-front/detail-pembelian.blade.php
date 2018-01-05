@@ -77,7 +77,7 @@
                             <tr>
                                 <th scope="row">Status</th>
                                 <td>
-                                    <span class="label {{ ($transaksi->status == 0) ? 'label-info' : (($transaksi->status == 1) ? 'label-primary' : (($penjualan->status == 2) ? 'label-warning' : (($transaksi->status == 3) ? 'label-success' : 'label-danger'))) }}">{{ ($transaksi->status == 0) ? 'Waiting' : (($transaksi->status == 1) ? 'Payment Confirmed' : (($transaksi->status == 2) ? 'Dikirim' : (($transaksi->status == 3) ? 'Diterima' : 'Gagal'))) }}</span>
+                                    <span class="label {{ ($transaksi->status == 0) ? 'label-info' : (($transaksi->status == 1) ? 'label-primary' : (($transaksi->status == 2) ? 'label-warning' : (($transaksi->status == 3) ? 'label-success' : 'label-danger'))) }}">{{ ($transaksi->status == 0) ? 'Waiting' : (($transaksi->status == 1) ? 'Payment Confirmed' : (($transaksi->status == 2) ? 'Dikirim' : (($transaksi->status == 3) ? 'Diterima' : 'Gagal'))) }}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -98,11 +98,14 @@
                             </tr>
                             </tbody>
                         </table>
-                        <form>
+                        <form method="post" action="{{route('beli.terima')}}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="id" value="{{ $transaksi->id }}">
                             <input class="hollow" type="submit" value="Diterima">
                         </form>
                         <form>
-                            <input class="hollow" type="submit" value="Print Invoice">
+                            <a href="{{ route('invoice',$transaksi->id) }}" class=" btn btn-lg hollow"
+                               style="width: 100%;" target="_blank">Print Invoice</a>
                         </form>
                         @if($transaksi->status == 0 && !$transaksi->bukti()->exists())
                             <div class="modal-container">

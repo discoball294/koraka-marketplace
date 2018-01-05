@@ -18,6 +18,8 @@ class CreateTransaksisTable extends Migration
             $table->integer('user_id');
             $table->integer('total');
             $table->integer('status');
+            $table->string('resi');
+            $table->string('invoice_id');
             $table->timestamps();
         });
     }

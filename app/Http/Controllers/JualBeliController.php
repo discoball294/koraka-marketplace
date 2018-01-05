@@ -39,4 +39,26 @@ class JualBeliController extends Controller
         $transaksi = Transaksi::find($id);
         return view('store-front.detail-pembelian', compact('transaksi'));
     }
+
+    public function kirim(Request $request)
+    {
+        $transaksi = Transaksi::find($request->id);
+        $transaksi->resi = $request->resi;
+        $transaksi->status = 2;
+        $transaksi->save();
+        return redirect()->back();
+    }
+
+    public function terima(Request $request)
+    {
+        $transaksi = Transaksi::find($request->id);
+        $transaksi->status = 3;
+        $transaksi->save();
+        return redirect()->back();
+    }
+
+    public function invoice($id)
+    {
+        return view('store-front.invoice', ['transaksi' => Transaksi::find($id)]);
+    }
 }
