@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 
 class JualBeliController extends Controller
 {
-    public function indexJual()
+    public function indexJual(Request $request)
     {
         if ($store_exist = \App\User::find(\Auth::id())->myStore()->exists()) {
+            $status = ($request->has('sort')) ? $request->sort : 0;
             $store_id = \Auth::user()->myStore->id;
             $list_penjualan = \App\Transaksi::whereHas('products.stores', function ($query) use ($store_id) {
                 $query->where('id', '=', $store_id);
-            })->paginate();
+            })->where('status', '=', $status)->paginate(10);
         } else {
             return abort(404, 'Belum Buka Toko');
         }
@@ -27,9 +28,10 @@ class JualBeliController extends Controller
         return view('store-front.detail-penjualan', compact('transaksi'));
     }
 
-    public function indexBeli()
+    public function indexBeli(Request $request)
     {
-        $list_pembelian = \App\Transaksi::where('user_id', '=', \Auth::id())->paginate(10);
+        $status = ($request->has('sort')) ? $request->sort : 0;
+        $list_pembelian = \App\Transaksi::where('user_id', '=', \Auth::id())->where('status', '=', $status)->paginate(10);
         return view('store-front.pembelian', compact('list_pembelian'));
 
     }

@@ -46,13 +46,13 @@
                                         </form>
                                     </th>
                                     <td>
-                                        <a href="{{ route('storefront.product-single',$content->id) }}">
+                                        <a href="{{ route('storefront.product-single',$content->options->slug) }}">
                                             <img alt="Product" class="product-thumb"
                                                  src="{{ asset($content->options->image) }}">
                                         </a>
                                     </td>
                                     <td>
-                                        <span><a href="{{ route('storefront.product-single',$content->id) }}">{{ $content->name }}</a></span>
+                                        <span><a href="{{ route('storefront.product-single',$content->options->slug) }}">{{ $content->name }}</a></span>
                                     </td>
                                     <td>
                                         <span>{{ $content->qty }}</span>

@@ -33,6 +33,16 @@ class HomeController extends Controller
         return view('store-front.home', compact('user'));
     }
 
+    public function about()
+    {
+        return view('store-front.about');
+    }
+
+    public function contact()
+    {
+        return view('store-front.contact');
+    }
+
     public function indexProduct($category)
     {
         if ($category == 'all') {
@@ -58,18 +68,18 @@ class HomeController extends Controller
         return view('store-front.mystore', compact('mystore', 'produk'));
     }
 
-    public function singleProduct($id)
+    public function singleProduct($slug)
     {
         $buy = false;
+        $product = Product::findBySlug($slug);
         if (\Auth::check()) {
-            $buy = \Auth::user()->whereHas('transaksi.products', function ($query) use ($id) {
-                $query->where('products.id', '=', $id);
+            $buy = \Auth::user()->whereHas('transaksi.products', function ($query) use ($slug) {
+                $query->where('products.slug', '=', $slug);
             })->where('users.id', '=', \Auth::id())->exists();
         }
-        $owner = \App\Product::find($id)->stores->user()->where('id', '=', \Auth::id())->exists();
-        $reviews = Review::where('product_id', '=', $id)->get();
+        $owner = \App\Product::findBySlug($slug)->stores->user()->where('id', '=', \Auth::id())->exists();
+        $reviews = Review::where('product_id', '=', $product->id)->get();
         //dd($reviews);
-        $product = Product::find($id);
         $product->addPageView();
         return view('store-front.single-product', compact('product', 'buy', 'owner', 'reviews'));
     }

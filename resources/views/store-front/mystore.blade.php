@@ -92,7 +92,7 @@
                         @foreach($produk as $item)
                             <div class="col-md-4 col-sm-4 masonry-item col-xs-12">
                                 <div class="image-tile outer-title text-center">
-                                    <a href="{{ route('storefront.product-single',$item->id) }}">
+                                    <a href="{{ route('storefront.product-single',$item->slug) }}">
                                         <img alt="Pic" class="product-thumb" src="{{ asset($item->gambar) }}"/>
                                     </a>
                                     <div class="title">

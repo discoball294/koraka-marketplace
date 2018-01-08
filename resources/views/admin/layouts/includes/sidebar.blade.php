@@ -25,16 +25,22 @@
                     <span class="title">Order</span>
                 </a>
             </li>
-            <li class="nav-item {{ Route::is('user.user') ? 'active open' : '' }}">
-                <a href="" class="nav-link nav-toggle">
+            <li class="nav-item {{ Route::is('admin.user') ? 'active open' : '' }}">
+                <a href="{{ route('admin.user') }}" class="nav-link nav-toggle">
                     <i class="icon-user"></i>
                     <span class="title">User</span>
                 </a>
             </li>
             <li class="nav-item {{ Route::is('admin.store') ? 'active open' : '' }}">
-                <a href="" class="nav-link nav-toggle">
+                <a href="{{ route('admin.store') }}" class="nav-link nav-toggle">
                     <i class="icon-handbag"></i>
                     <span class="title">Store</span>
+                </a>
+            </li>
+            <li class="nav-item {{ Route::is('admin.product') ? 'active open' : '' }}">
+                <a href="{{ route('admin.product') }}" class="nav-link nav-toggle">
+                    <i class="icon-tag"></i>
+                    <span class="title">Product</span>
                 </a>
             </li>
             <li class="nav-item {{ Route::is('laporan') ? 'active open' : '' }}">

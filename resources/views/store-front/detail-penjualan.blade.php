@@ -116,7 +116,7 @@
                                     <span>{{ $product->id }}</span>
                                 </th>
                                 <td>
-                                    <a href="{{ route('storefront.product-single',$product->id) }}">
+                                    <a href="{{ route('storefront.product-single',$product->slug) }}">
                                         <img alt="Product" class="product-thumb"
                                              src="{{ asset($product->gambar) }}">
                                     </a>

@@ -37,6 +37,23 @@
     <section>
         <div class="container">
             <div class="row">
+                <div class="col-md-2 col-md-offset-8 col-sm-4 col-xs-12">
+                    <div class="select-option">
+                        <i class="ti-angle-down"></i>
+                        <form method="get" id="sort">
+                            <select name="sort" id="select-sort">
+                                <option value="0">Baru</option>
+                                <option value="1">Terkonfirmasi</option>
+                                <option value="2">Dikirim</option>
+                                <option value="3">Selesai</option>
+                                <option value="4">Batal</option>
+                            </select>
+                        </form>
+                    </div>
+                    <!--end select-->
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-9 col-md-offset-1 col-sm-10 col-sm-offset-1">
                     <h5 class="uppercase">List Pembelian Anda</h5>
                     <hr>
@@ -118,6 +135,11 @@
             $(".clickable-row").click(function () {
                 window.location = $(this).data("href");
             });
+            $('#select-sort').val({{ \Illuminate\Support\Facades\Input::get('sort',0) }});
+            $('#select-sort').change(function () {
+                $('#sort').submit();
+            });
+
 
         });
     </script>

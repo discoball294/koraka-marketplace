@@ -22,6 +22,7 @@ class Product extends Migration
             $table->integer('harga');
             $table->string('gambar');
             $table->integer('stok');
+            $table->string('slug');
             $table->timestamps();
         });
     }

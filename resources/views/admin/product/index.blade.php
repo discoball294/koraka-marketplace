@@ -21,7 +21,7 @@
 @section('content')
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
-        <h1 class="page-title"> Transaksi
+        <h1 class="page-title"> Semua Barang
             <small></small>
         </h1>
         @foreach(['danger','success','warning','info'] as $msg)
@@ -52,7 +52,7 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="#">Transaksi</a>
+                    <a href="#">Semua Barang</a>
                 </li>
             </ul>
         </div>
@@ -63,19 +63,19 @@
                 <div class="portlet light portlet-fit">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-shopping-cart"></i>Daftar Transaksi
+                            <i class="fa fa-shopping-cart"></i>Daftar Semua Barang
                         </div>
                         <ul class="pagination pagination-circle" style="margin-right: 10px">
                             {{--{{ $reservasi->appends(['expired'=> $reservasi_expired->currentPage(),'completed'=>$reservasi_completed->currentPage()])->links() }}
                             {{ $reservasi_expired->appends(['new'=> $reservasi->currentPage(),'completed'=>$reservasi_completed->currentPage()])->links() }}
                             {{ $reservasi_completed->appends(['new'=> $reservasi->currentPage(),'expired'=>$reservasi_expired->currentPage()])->links() }}--}}
-                            <li><a href="{{ $transaksi->url(1) }}">«</a></li>
-                            @if($transaksi->lastPage() > 1)
-                                @for($i = 1; $i <= $transaksi->lastPage(); $i++)
-                                    <li><a href="{{ $transaksi->url($i) }}">{{ $i }}</a></li>
+                            <li><a href="{{ $all_products->url(0) }}">«</a></li>
+                            @if($all_products->lastPage() > 1)
+                                @for($i = 1; $i <= $all_products->lastPage(); $i++)
+                                    <li><a href="{{ $all_products->url($i) }}">{{ $i }}</a></li>
                                 @endfor
                             @endif
-                            <li><a href="{{ $transaksi->url($transaksi->lastPage()) }}">»</a></li>
+                            <li><a href="{{ $all_products->url($all_products->lastPage()) }}">»</a></li>
                         </ul>
                     </div>
                     <div class="portlet-body">
@@ -87,50 +87,29 @@
                                         #
                                     </th>
                                     <th>
-                                        Invoice
+                                        Nama Barang
                                     </th>
                                     <th>
-                                        Customer
+                                        Toko
                                     </th>
                                     <th>
-                                        <i class="fa fa-bookmark"></i> Total
+                                        Harga
                                     </th>
                                     <th>
-                                        Bukti Transfer
+                                        Tanggal input
                                     </th>
-                                    <th>
-                                        Status
-                                    </th>
-                                    <th>
-                                        Action
-                                    </th>
-
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($transaksi as $item)
+                                @foreach($all_products as $item)
                                     <tr>
                                         <td>
                                             {{ $item->id }}
                                         </td>
-                                        <td class="hidden-xs"> {{ $item->invoice_id }} </td>
-                                        <td class="hidden-xs"> {{ $item->user->name }} </td>
-                                        <td> Rp. {{ number_format($item->total) }}
-                                        </td>
-                                        <td>
-                                            @if($item->bukti()->exists())
-                                                <a href="{{ asset($item->bukti->gambar) }}"
-                                                   data-lightbox="bukti{{$item->id}}"
-                                                   data-title="Bukti Transfer {{ $item->invoice_id }}">Lihat</a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <span class="label {{ ($item->status == 0) ? 'label-info' : (($item->status == 1) ? 'label-primary' : (($item->status == 2) ? 'label-warning' : (($item->status == 3) ? 'label-success' : 'label-danger'))) }}">{{ ($item->status == 0) ? 'Menunggu Pembayaran' : (($item->status == 1) ? 'Payment Confirmed' : (($item->status == 2) ? 'Dikirim' : (($item->status == 3) ? 'Selesai' : 'Gagal'))) }}</span>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('detail.order',$item->id) }}"
-                                               class="btn btn-sm btn-circle btn-default btn-editable"><i
-                                                        class="fa fa-search"></i> View</a>
+                                        <td class="hidden-xs"> {{ $item->nama_barang }} </td>
+                                        <td class="hidden-xs"> {{ $item->stores->nama_toko }} </td>
+                                        <td class="hidden-xs"> Rp. {{ number_format($item->harga) }} </td>
+                                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$item->created_at)->toFormattedDateString() }}
                                         </td>
                                     </tr>
                                 @endforeach

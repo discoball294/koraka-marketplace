@@ -8,7 +8,7 @@ class CartController extends Controller
 {
     public function addToCart(Request $request)
     {
-        \Cart::add($request->id, $request->name, $request->qty, $request->price, ['image' => $request->image, 'store_id' => $request->store_id, 'store_name' => $request->store_name]);
+        \Cart::add($request->id, $request->name, $request->qty, $request->price, ['image' => $request->image, 'store_id' => $request->store_id, 'store_name' => $request->store_name, 'slug' => $request->slug]);
         return \Cart::content();
     }
 

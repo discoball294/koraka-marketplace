@@ -19,16 +19,7 @@
 <div class="nav-container">
     <a id="top"></a>
     <nav>
-        <div class="nav-utility">
-            <div class="module left">
-                <i class="ti-location-arrow">&nbsp;</i>
-                <span class="sub">68 Cardamon Place, Melbourne Vic 3000</span>
-            </div>
-            <div class="module left">
-                <i class="ti-email">&nbsp;</i>
-                <span class="sub">hello@foundry.net</span>
-            </div>
-        </div>
+
         <div class="nav-bar">
             <div class="module left">
                 <a href="index.html">
@@ -53,12 +44,12 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ route('storefront.contact') }}">
                                 Contact
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ route('storefront.about') }}">
                                 About Us
                             </a>
                         </li>
@@ -134,54 +125,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-6">
-                    <img alt="Logo" class="logo" src="img/logo-light.png"/>
+                    <img alt="Logo" class="logo" src="{{ asset('img/logo-light.png') }}"/>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div class="widget">
-                        <h6 class="title">Recent Posts</h6>
-                        <hr>
-                        <ul class="link-list recent-posts">
-                            <li>
-                                <a href="#">Hugging pugs is super trendy</a>
-                                <span class="date">February
-                                            <span class="number">14, 2015</span>
-                                        </span>
-                            </li>
-                            <li>
-                                <a href="#">Spinning vinyl is oh so cool</a>
-                                <span class="date">February
-                                            <span class="number">9, 2015</span>
-                                        </span>
-                            </li>
-                            <li>
-                                <a href="#">Superior theme design by pros</a>
-                                <span class="date">January
-                                            <span class="number">27, 2015</span>
-                                        </span>
-                            </li>
-                        </ul>
-                    </div>
+
                     <!--end of widget-->
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div class="widget">
-                        <h6 class="title">Latest Updates</h6>
-                        <hr>
-                        <div class="twitter-feed">
-                            <div class="tweets-feed" data-feed-name="mrareweb">
-                            </div>
-                        </div>
-                    </div>
+
                     <!--end of widget-->
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div class="widget">
-                        <h6 class="title">Instagram</h6>
-                        <hr>
-                        <div class="instafeed" data-user-name="mrareweb">
-                            <ul></ul>
-                        </div>
-                    </div>
+
                     <!--end of widget-->
                 </div>
             </div>

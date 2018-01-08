@@ -12,9 +12,11 @@
 */
 
 Route::get('', ['uses' => 'HomeController@index', 'as' => 'storefront.index']);
+Route::get('about', ['uses' => 'HomeController@about', 'as' => 'storefront.about']);
+Route::get('contact', ['uses' => 'HomeController@contact', 'as' => 'storefront.contact']);
 Route::get('products/{category}', ['uses' => 'HomeController@indexProduct', 'as' => 'storefront.product']);
 Route::get('search', ['uses' => 'HomeController@search', 'as' => 'storefront.search']);
-Route::get('product/{id}', ['uses' => 'HomeController@singleProduct', 'as' => 'storefront.product-single']);
+Route::get('product/{slug}', ['uses' => 'HomeController@singleProduct', 'as' => 'storefront.product-single']);
 Route::get('store/{url_toko}', ['uses' => 'HomeController@indexStore', 'as' => 'storefront.mystore']);
 Route::resource('order', 'TransaksiController');
 Route::group(['prefix' => 'cart'], function () {
@@ -42,6 +44,10 @@ Route::group(['middleware' => ['role:User', 'web']], function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['role:Admin']], function () {
     Route::get('', ['uses' => 'IndexAdminController@index', 'as' => 'admin.index']);
     Route::get('order', ['uses' => 'IndexAdminController@order', 'as' => 'admin.order']);
+    Route::get('user', ['uses' => 'IndexAdminController@registeredUser', 'as' => 'admin.user']);
+    Route::get('stores', ['uses' => 'IndexAdminController@allStore', 'as' => 'admin.store']);
+    Route::get('products', ['uses' => 'IndexAdminController@allProduct', 'as' => 'admin.product']);
+    Route::post('confirm', ['uses' => 'IndexAdminController@confirm', 'as' => 'admin.confirm']);
     Route::get('detail/{id}', ['uses' => 'IndexAdminController@detailOrder', 'as' => 'detail.order']);
 });
 Auth::routes();

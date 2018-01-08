@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaksi whereResi($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaksi whereStatus($value)
  * @property-read \App\BuktiTransfer $bukti
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Transaksi whereInvoiceId($value)
  */
 class Transaksi extends Model
 {

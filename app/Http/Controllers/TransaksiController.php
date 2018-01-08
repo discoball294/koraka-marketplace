@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Alamat;
+use App\Product;
 use App\Transaksi;
 use App\User;
 use Illuminate\Http\Request;
@@ -62,6 +63,8 @@ class TransaksiController extends Controller
         foreach ($cart_content = \Cart::content()->groupBy('options.store_id') as $content_store) {
             foreach ($content_store as $content) {
                 $cart_item[$content->id] = ['price' => $content->price, 'qty' => $content->qty, 'total' => $content->price * $content->qty];
+                $product = Product::find($content->id);
+                $product->decrement('stok', $content->qty);
                 $subtotal += $content->price * $content->qty;
             }
             $transaksi = new Transaksi();

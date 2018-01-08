@@ -60,7 +60,6 @@
                                     <form class="add-to-cart" id="atc">
                                         <a href="{{ route('act-product.edit', $product->id) }}" class="btn btn-filled"
                                            id="btn-atc">EDIT</a>
-                                        <a href="" class="btn btn-filled" id="btn-atc">DELETE</a>
                                     </form>
                                 @else
                                     <form class="add-to-cart" id="atc">
@@ -227,7 +226,7 @@
                         <ul class="cart-overview">
                             @foreach($sorted_product as $item)
                                 <li>
-                                    <a href="{{ route('storefront.product-single',$item->id) }}">
+                                    <a href="{{ route('storefront.product-single',$item->slug) }}">
                                         <img alt="Product" src="{{ asset($item->gambar) }}"/>
                                         <div class="description">
                                             <span class="product-title">{{ $item->nama_barang }}</span>
@@ -292,6 +291,7 @@
                         image: '{{$product->gambar}}',
                         store_id: '{{ $product->stores->id }}',
                         store_name: '{{ $product->stores->nama_toko }}',
+                        slug: '{{ $product->slug }}',
                         _token: '{{ csrf_token() }}'
                     },
                     dataType: 'json',
