@@ -37,17 +37,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $path = $request->gambar->store('images', 'public');
-        $product = new Product();
-        $product->nama_barang = $request->nama;
-        $product->harga = $request->harga;
-        $product->deskripsi = $request->deskripsi;
-        $product->stok = $request->stok;
-        $product->gambar = $path;
-        $product->kategori_id = $request->kategori;
-        $product->store_id = $request->store_id;
-        $product->save();
-        return redirect()->route('storefront.mystore', \Auth::user()->myStore->url_toko);
+        $validator = \Validator::make($request->all(), [
+            'nama' => 'required',
+            'harga' => 'required|numeric',
+            'deskripsi' => 'required',
+            'stok' => 'required|numeric',
+        ]);
+        if ($validator->passes()) {
+            $path = $request->gambar->store('images', 'public');
+            $product = new Product();
+            $product->nama_barang = $request->nama;
+            $product->harga = $request->harga;
+            $product->deskripsi = $request->deskripsi;
+            $product->stok = $request->stok;
+            $product->gambar = $path;
+            $product->kategori_id = $request->kategori;
+            $product->store_id = $request->store_id;
+            $product->save();
+            return redirect()->route('storefront.mystore', \Auth::user()->myStore->url_toko);
+        } else
+            return redirect()->back()->withErrors($validator)->withInput();
+
     }
 
     /**
@@ -83,20 +93,31 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product, $id)
     {
-        $product = $product->find($id);
-        $product->nama_barang = $request->nama;
-        $product->harga = $request->harga;
-        $product->deskripsi = $request->deskripsi;
-        $product->stok = $request->stok;
-        if ($request->hasFile('gambar')) {
-            $path = $request->gambar->store('images', 'public');
-            $product->gambar = $path;
+        $validator = \Validator::make($request->all(), [
+            'nama' => 'required',
+            'harga' => 'required|numeric',
+            'deskripsi' => 'required',
+            'stok' => 'required|numeric',
+        ]);
+        if ($validator->passes()) {
+            $product = $product->find($id);
+            $product->nama_barang = $request->nama;
+            $product->harga = $request->harga;
+            $product->deskripsi = $request->deskripsi;
+            $product->stok = $request->stok;
+            if ($request->hasFile('gambar')) {
+                $path = $request->gambar->store('images', 'public');
+                $product->gambar = $path;
+            }
+
+            $product->kategori_id = $request->kategori;
+            $product->store_id = $request->store_id;
+            $product->save();
+            return redirect()->route('storefront.mystore', \Auth::user()->myStore->url_toko);
+        } else {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $product->kategori_id = $request->kategori;
-        $product->store_id = $request->store_id;
-        $product->save();
-        return redirect()->route('storefront.mystore', \Auth::user()->myStore->url_toko);
 
     }
 

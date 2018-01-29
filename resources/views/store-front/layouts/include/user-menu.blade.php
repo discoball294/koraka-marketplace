@@ -23,7 +23,7 @@
     position: absolute;
     background: #f84634;
     top: 10px;
-    border-radius: 50%;">{{ $menunggu_kirim }}</span>
+    border-radius: 50%;">{{ @$menunggu_kirim }}</span>
                     </li>
                 @else
                     <li>
@@ -41,7 +41,7 @@
     position: absolute;
     background: #f84634;
     top: 10px;
-    border-radius: 50%;">{{ $menunggu_bayar }}</span>
+    border-radius: 50%;">{{ @$menunggu_bayar }}</span>
                 </li>
                 <li><a href="{{ route('logout') }}"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>

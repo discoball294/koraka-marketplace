@@ -44,7 +44,7 @@ class ReviewController extends Controller
         $review->user()->associate($user);
         $review->product()->associate($product);
         $review->save();
-        dd($review);
+        return redirect()->back();
 
     }
 

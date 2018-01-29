@@ -193,7 +193,7 @@
                 showCaption: false,
                 showUpload: false
             });
-            $.getJSON("https://crossorigin.herokuapp.com/https://api.rajaongkir.com/starter/province?key=8ec565847b06a05165b88a09a6fb572d", null, function (data) {
+            $.getJSON("https://cors.io/?https://api.rajaongkir.com/starter/province?key=8ec565847b06a05165b88a09a6fb572d", null, function (data) {
                 $.each(data.rajaongkir.results, function (index, item) { // Iterates through a collection
                     $(".provinsi").append( // Append an object to the inside of the select box
                         $("<option></option>") // Yes you can do this.
@@ -206,7 +206,7 @@
             $('.provinsi').change(function () {
                 var province_id = $(this).val();
                 $('input[name=provinsi]').val($('option:selected', this).text());
-                $.getJSON("https://crossorigin.herokuapp.com/https://api.rajaongkir.com/starter/city?key=8ec565847b06a05165b88a09a6fb572d", {
+                $.getJSON("https://cors.io/?https://api.rajaongkir.com/starter/city?key=8ec565847b06a05165b88a09a6fb572d", {
                     province: province_id
                 }, function (data) {
                     console.log(data);

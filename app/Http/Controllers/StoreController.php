@@ -37,19 +37,27 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        $path = $request->gambar->store('img', 'public');
-        $user = User::find(\Auth::user()->id);
-        $mystore = new Store();
-        $mystore->nama_toko = $request->nama;
-        $mystore->slogan = $request->slogan;
-        $mystore->deskripsi = $request->deskripsi;
-        $mystore->url_toko = $request->url_toko;
-        $mystore->gambar = $path;
+        $validator = \Validator::make($request->all(), [
+            'nama' => 'required',
+            'slogan' => 'required',
+            'deskripsi' => 'required',
+            'url_toko' => 'required'
+        ]);
+        if ($validator->passes()) {
+            $path = $request->gambar->store('img', 'public');
+            $user = User::find(\Auth::user()->id);
+            $mystore = new Store();
+            $mystore->nama_toko = $request->nama;
+            $mystore->slogan = $request->slogan;
+            $mystore->deskripsi = $request->deskripsi;
+            $mystore->url_toko = $request->url_toko;
+            $mystore->gambar = $path;
 
-        $user->myStore()->save($mystore);
-        return redirect()->route('storefront.mystore', $user->myStore->url_toko);
-
-
+            $user->myStore()->save($mystore);
+            return redirect()->route('storefront.mystore', $user->myStore->url_toko);
+        } else {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
     }
 
     /**
